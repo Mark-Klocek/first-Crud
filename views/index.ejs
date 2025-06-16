@@ -14,17 +14,24 @@
         <button type="submit">Submit</button>
         
     </form>
+    <div>
+        <h2>Darth Vader invades!</h2>
+        <p>Replace empty quotes with evil quotes</p>
+        <button id="updateButton">Replace Empty Quote</button>
+        <button id="deleteLazy">DELETE lazy peons!</button>
+    </div>
     <h2>Quotes</h2>
     <ul class="quotes">
         <% for(i=0;i<quotes.length;i++) {%>
-            <% if (quotes[i].name.length > 1) {%>
+            
             <li class="quote">
                 <span><%= quotes[i].name %>:</span>
                 <span><%= quotes[i].quote %></span>
             </li>
-            <% } %>
+            
         <% } %>
     </ul>
-    <script src="server.js"></script>
+    
+    <script src="/main.js"></script>
 </body>
 </html>

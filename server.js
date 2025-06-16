@@ -5,6 +5,9 @@ const connectString = 'mongodb+srv://markklocek:Lolwat123@cluster0.yd0mb8o.mongo
 const MongoClient = require('mongodb').MongoClient
 app.set('view engine','ejs')
 
+app.use(express.static('public'))
+app.use(express.json())
+
 MongoClient.connect(connectString)
     .then( client => {
     console.log('Connected to Database')
@@ -13,9 +16,7 @@ MongoClient.connect(connectString)
     app.use(express.urlencoded({extended:true}))
 
 
-    app.listen(8000,function(){
-        console.log('listening on 8000')
-    })
+    
     app.get('/',(req,res)=>{
         //res.sendFile(__dirname+'/index.html')
         db.collection('quotes')
@@ -23,7 +24,7 @@ MongoClient.connect(connectString)
             .toArray()
             .then(results =>{
                 res.render('index.ejs',{quotes:results})
-                console.log(results)
+                
             })
             .catch(err=>console.error(err))
         //res.render('index.ejs',{})
@@ -37,7 +38,28 @@ MongoClient.connect(connectString)
             })
             .catch(err=>console.error(err))
     })
-    
+    app.put('/quotes',(req, res)=>{
+        console.log(req.body)
+        quotesCollection.findOneAndUpdate(
+            {name:''},
+            {
+                $set:{
+                    name: req.body.name,
+                    quote: req.body.quote
+                },
+            },
+            {
+                upsert: true,
+            }
+        )
+            .then(results=>{
+                res.json('Success')
+            })
+            .catch(err=>console.error(err))
+    })
+    app.listen(8000,function(){
+        console.log('listening on 8000')
+    })
     }
 )
     .catch(err=>console.error(err))
