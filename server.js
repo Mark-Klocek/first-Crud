@@ -53,7 +53,19 @@ MongoClient.connect(connectString)
             }
         )
             .then(results=>{
+                
                 res.json('Success')
+            })
+            .catch(err=>console.error(err))
+    })
+    app.delete('/quotes',(req,res)=>{
+        quotesCollection
+            .deleteOne({name: 'Not Lazy Mark'})
+            .then(results=>{
+                if (results.deletedCount === 0){
+                    return res.json(`No more lazy peons`)
+                }
+                res.json(`Deleted lazy peon`)
             })
             .catch(err=>console.error(err))
     })
