@@ -1,7 +1,8 @@
-
+require('dotenv').config();
+const password = process.env.MONGODB_PASSWORD;
 const express = require('express')
 const app = express()
-const connectString = 'mongodb+srv://markklocek:Lolwat123@cluster0.yd0mb8o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+const connectString = `mongodb+srv://markklocek:${password}@cluster0.yd0mb8o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
 const MongoClient = require('mongodb').MongoClient
 app.set('view engine','ejs')
 
